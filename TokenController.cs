@@ -30,22 +30,6 @@ namespace iknowscore.API.Controllers
             _playerService = playerService;
         }
 
-        [AllowAnonymous]
-        [HttpPost]
-        public async Task<IActionResult> CreateToken([FromBody]LoginModel login)
-        {
-            IActionResult response = Unauthorized();
-
-            var player = await _playerService.LoginPlayerAsync(login.Email, login.Password);
-            if (player != null)
-            {
-                var tokenString = BuildToken();
-                response = Ok(new { token = tokenString });
-            }
-
-            return response;
-        }
-
         // POST api/token/facebook
         [HttpPost("facebook")]
         public async Task<IActionResult> Facebook([FromBody]FacebookAuthViewModel model)
